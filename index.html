@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JAIDEV // AI Engineer & Software Developer [LOCKED IN]</title>
+  <meta name="description" content="Portfolio of Jaidev — AI Engineer, Systems Developer & Full-Stack Architect. Inspired by hacker aesthetics, zero-larp culture, and high-performance engineering.">
+  
+  <!-- Fonts: Syne (Ultra-modern display) & JetBrains Mono (Terminal/Monospace) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;0,800;1,400&family=Syne:wght@400;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Remix Icons / Lucide Icons via CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="cyber-theme">
+  <!-- Subtle CRT Scanline & Grain Overlay -->
+  <div class="crt-overlay" aria-hidden="true"></div>
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- Background Interactive Canvas (Nodes / Particle Grid) -->
+  <canvas id="particle-canvas" class="particle-canvas" aria-hidden="true"></canvas>
+
+  <!-- Glowing Ambient Radial Gradients -->
+  <div class="ambient-glow glow-top-left" aria-hidden="true"></div>
+  <div class="ambient-glow glow-bottom-right" aria-hidden="true"></div>
+
+  <!-- Custom Cursor Glow & Dot -->
+  <div class="custom-cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+  <div class="custom-cursor-ring" id="cursor-ring" aria-hidden="true"></div>
+
+  <!-- Hacker System Status Bar (Top Ticker) -->
+  <div class="system-status-bar">
+    <div class="status-inner container">
+      <div class="status-node">
+        <span class="pulsing-led online"></span>
+        <span class="status-label">SYS_STATUS:</span>
+        <span class="status-val text-green">ONLINE // LOCKED_IN</span>
+      </div>
+      <div class="status-ticker">
+        <span class="ticker-text">> PROTOCOL: ZERO_LARP // RESUME SAYS 10X // CODE SAYS O(1) // RUNTIME: PROD-READY</span>
+      </div>
+      <div class="status-controls">
+        <button id="sfx-toggle" class="btn-status-toggle" title="Toggle Terminal SFX" aria-label="Toggle Sound Effects">
+          <i class="ri-volume-up-line" id="sfx-icon"></i> <span id="sfx-text">SFX: ON</span>
+        </button>
+        <span class="status-time" id="local-clock">00:00:00 UTC</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="cyber-header" id="navbar">
+    <div class="header-inner container">
+      <a href="#hero" class="brand-logo">
+        <span class="brand-bracket">[</span>
+        <span class="brand-name">JAIDEV</span>
+        <span class="brand-accent">.DEV</span>
+        <span class="brand-bracket">]</span>
+        <span class="brand-badge">V2.4</span>
+      </a>
+
+      <nav class="nav-links" id="nav-menu">
+        <a href="#about" class="nav-link"><span class="nav-idx">01.</span>//ABOUT</a>
+        <a href="#skills" class="nav-link"><span class="nav-idx">02.</span>//TECH_STACK</a>
+        <a href="#projects" class="nav-link"><span class="nav-idx">03.</span>//PROJECTS</a>
+        <a href="#terminal-section" class="nav-link"><span class="nav-idx">04.</span>//TERMINAL</a>
+        <a href="#contact" class="nav-link"><span class="nav-idx">05.</span>//CONTACT</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="#contact" class="btn btn-cyber-primary btn-sm">
+          <span class="btn-glitch-text">TRANSMIT</span>
+          <i class="ri-terminal-box-line"></i>
+        </a>
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="section hero-section" id="hero">
+      <div class="container hero-container">
+        
+        <div class="hero-content">
+          <!-- Terminal Tagline Pill -->
+          <div class="hero-badge-wrap gs-reveal">
+            <div class="hero-badge">
+              <span class="badge-icon"><i class="ri-terminal-line"></i></span>
+              <span class="badge-text">> NO LARPING. JUST LOCK IN.</span>
+              <span class="badge-tag">AI & SYSTEMS</span>
+            </div>
+          </div>
+
+          <!-- Main Glitch Heading -->
+          <h1 class="hero-title gs-reveal">
+            <span class="hero-greeting">HELLO WORLD, I AM</span>
+            <span class="glitch-text" data-text="JAIDEV">JAIDEV</span>
+          </h1>
+
+          <!-- Role Typing Animation -->
+          <div class="hero-subtitle-box gs-reveal">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-command">role --current:</span>
+            <span class="dynamic-typed" id="typed-role">AI Engineer & Full-Stack Developer</span>
+            <span class="cursor-blink">_</span>
+          </div>
+
+          <p class="hero-desc gs-reveal">
+            Architecting intelligent systems, deep learning pipelines, and battle-tested full-stack web applications.
+            No fluff, no placeholder skills—just high-throughput code, optimal algorithms, and real deployment.
+          </p>
+
+          <!-- Metrics Strip -->
+          <div class="hero-stats-grid gs-reveal">
+            <div class="stat-card">
+              <span class="stat-num" data-val="100">0</span><span class="stat-plus">%</span>
+              <span class="stat-lbl">COMMITMENT TO QUALITY</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-num" data-val="15">0</span><span class="stat-plus">k+</span>
+              <span class="stat-lbl">RESUMES & ATS PROCESSED</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-num" data-val="1200">0</span><span class="stat-plus">+</span>
+              <span class="stat-lbl">DEVS CONNECTED</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-num" data-val="99">0</span><span class="stat-plus">.9%</span>
+              <span class="stat-lbl">UPTIME / EXECUTION</span>
+            </div>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="hero-cta-group gs-reveal">
+            <a href="#projects" class="btn btn-cyber-primary">
+              <i class="ri-code-s-slash-line"></i>
+              <span>VIEW PROJECTS</span>
+            </a>
+            <a href="#terminal-section" class="btn btn-cyber-secondary">
+              <i class="ri-terminal-window-line"></i>
+              <span>LAUNCH TERMINAL</span>
+            </a>
+            <a href="#contact" class="btn btn-cyber-ghost">
+              <i class="ri-send-plane-fill"></i>
+              <span>LET'S TALK</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero Visual: Cyber Terminal HUD Window -->
+        <div class="hero-visual gs-reveal">
+          <div class="cyber-window">
+            <div class="window-header">
+              <div class="window-dots">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+              </div>
+              <div class="window-title">jaidev@engine: ~/core/profile.sys</div>
+              <div class="window-pill">STATUS: EXEC</div>
+            </div>
+            <div class="window-body">
+              <div class="code-line"><span class="tok-comment">// Diagnostic Scan // Target: Jaidev</span></div>
+              <div class="code-line"><span class="tok-keyword">const</span> <span class="tok-var">developer</span> = {</div>
+              <div class="code-line indent-1"><span class="tok-prop">alias</span>: <span class="tok-string">"Jaidev"</span>,</div>
+              <div class="code-line indent-1"><span class="tok-prop">specialty</span>: [<span class="tok-string">"AI/ML Systems"</span>, <span class="tok-string">"Full-Stack Dev"</span>, <span class="tok-string">"Algorithms"</span>],</div>
+              <div class="code-line indent-1"><span class="tok-prop">mindset</span>: <span class="tok-string">"Zero LARP. Ship impact."</span>,</div>
+              <div class="code-line indent-1"><span class="tok-prop">primary_weapons</span>: [<span class="tok-string">"Python"</span>, <span class="tok-string">"C++"</span>, <span class="tok-string">"TypeScript"</span>, <span class="tok-string">"PyTorch"</span>],</div>
+              <div class="code-line indent-1"><span class="tok-prop">status</span>: <span class="tok-string">"Ready to collaborate & build"</span>,</div>
+              <div class="code-line indent-1"><span class="tok-func">verifyAuthenticity</span>() {</div>
+              <div class="code-line indent-2"><span class="tok-keyword">return</span> <span class="tok-bool">true</span>; <span class="tok-comment">// 100% genuine code</span></div>
+              <div class="code-line indent-1">}</div>
+              <div class="code-line">};</div>
+              <div class="code-line mt-2"><span class="tok-prompt">> developer.verifyAuthenticity();</span></div>
+              <div class="code-line"><span class="tok-result text-green">> SUCCESS: PASS [NO LARP DETECTED]</span></div>
+              <div class="code-line"><span class="tok-prompt">> ready_for_deployment == true</span></div>
+              <div class="hud-activity-bar">
+                <div class="bar-fill"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== ABOUT SECTION ==================== -->
+    <section class="section about-section" id="about">
+      <div class="container">
+        
+        <div class="section-header gs-reveal">
+          <div class="section-tag"><span class="hash">#</span> 01 // DOSSIER</div>
+          <h2 class="section-title">ENGINEER_SPECIFICATION <span class="accent-dot">.</span></h2>
+          <p class="section-desc">Behind the terminal: Background, ethos, and what drives my development workflow.</p>
+        </div>
+
+        <div class="about-grid">
+          <!-- Text Profile -->
+          <div class="about-card cyber-panel gs-reveal">
+            <div class="panel-corner corner-tl"></div>
+            <div class="panel-corner corner-tr"></div>
+            <div class="panel-corner corner-bl"></div>
+            <div class="panel-corner corner-br"></div>
+
+            <div class="panel-header">
+              <i class="ri-user-6-line text-cyan"></i>
+              <span class="panel-title">SYSTEM_IDENTIFICATION</span>
+              <span class="panel-badge">CLEARANCE_L4</span>
+            </div>
+
+            <div class="panel-content">
+              <p class="lead-text">
+                I am an <strong class="text-white">AI Engineer & Software Developer</strong> obsessed with bridging bleeding-edge machine learning models with production-grade, hyper-performant web applications.
+              </p>
+              <p>
+                In a developer climate where buzzwords often disguise shallow prototypes, I believe in <span class="text-green font-mono">"No Larping. Just Lock In."</span> Every project I build is architected from clean fundamentals: robust data structures, efficient memory management, and scalable cloud architectures.
+              </p>
+              <p>
+                From reverse-engineering resume ATS algorithms with NLP embeddings to building real-time collaborative matching engines for hackathons, I focus on solving tangible bottlenecks with clean code and intuitive UX.
+              </p>
+
+              <div class="about-tags-list">
+                <span class="cyber-chip"><i class="ri-checkbox-circle-line"></i> Algorithmic Problem Solving</span>
+                <span class="cyber-chip"><i class="ri-checkbox-circle-line"></i> Deep Learning & NLP</span>
+                <span class="cyber-chip"><i class="ri-checkbox-circle-line"></i> Full-Stack System Design</span>
+                <span class="cyber-chip"><i class="ri-checkbox-circle-line"></i> Real-time WebSockets & APIs</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature Specs / Pillars -->
+          <div class="about-features-column">
+            <div class="cyber-feature-card gs-reveal">
+              <div class="feature-icon-box bg-cyan-glow">
+                <i class="ri-cpu-line"></i>
+              </div>
+              <div class="feature-content">
+                <h3 class="feature-title">AI & ML Architecture</h3>
+                <p class="feature-text">Fine-tuning LLMs, building semantic vector embeddings, optimizing inference pipelines, and designing practical ML-driven features that solve real pain points.</p>
+              </div>
+            </div>
+
+            <div class="cyber-feature-card gs-reveal">
+              <div class="feature-icon-box bg-purple-glow">
+                <i class="ri-code-box-line"></i>
+              </div>
+              <div class="feature-content">
+                <h3 class="feature-title">High-Performance Full-Stack</h3>
+                <p class="feature-text">Engineered with modern frameworks (React, Next.js, Node.js, FastAPI, C++) prioritizing sub-100ms response times, intuitive UI states, and reactive state management.</p>
+              </div>
+            </div>
+
+            <div class="cyber-feature-card gs-reveal">
+              <div class="feature-icon-box bg-green-glow">
+                <i class="ri-shield-flash-line"></i>
+              </div>
+              <div class="feature-content">
+                <h3 class="feature-title">Production Rigor & Zero Larp</h3>
+                <p class="feature-text">Clean Git workflows, automated testing, containerized setups (Docker), and modular codebases built to scale gracefully without technical debt.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== SKILLS / TECH STACK SECTION ==================== -->
+    <section class="section skills-section" id="skills">
+      <div class="container">
+        
+        <div class="section-header gs-reveal">
+          <div class="section-tag"><span class="hash">#</span> 02 // CAPABILITIES</div>
+          <h2 class="section-title">ARSENAL_&_STACK <span class="accent-dot">.</span></h2>
+          <p class="section-desc">Tools, languages, and frameworks actively deployed in my production environments.</p>
+        </div>
+
+        <!-- Filter tabs for interactive categorization -->
+        <div class="skills-filter-tabs gs-reveal">
+          <button class="filter-tab active" data-filter="all">ALL_MODULES</button>
+          <button class="filter-tab" data-filter="ai">AI / ML / DATA</button>
+          <button class="filter-tab" data-filter="languages">LANGUAGES & SYSTEMS</button>
+          <button class="filter-tab" data-filter="web">WEB & APIS</button>
+          <button class="filter-tab" data-filter="tools">DEVOPS & TOOLS</button>
+        </div>
+
+        <div class="skills-grid" id="skills-grid">
+          
+          <!-- Category: AI / ML -->
+          <div class="skill-card gs-reveal" data-category="ai">
+            <div class="skill-card-inner">
+              <div class="skill-icon-header">
+                <i class="ri-brain-line icon-cyan"></i>
+                <span class="skill-level">MASTERY</span>
+              </div>
+              <h3 class="skill-name">Python & PyTorch</h3>
+              <p class="skill-sub">Neural Networks, Transformers, Hugging Face, Model Optimization</p>
+              <div class="skill-progress-bar">
+                <div class="progress-fill" style="width: 95%;"></div>
+              </div>
+              <div class="skill-meta">
+                <span>EXP: 3+ YEARS</span>
+                <span class="text-cyan">95%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-card gs-reveal" data-category="ai">
+            <div class="skill-card-inner">
+              <div class="skill-icon-header">
+                <i class="ri-bubble-chart-line icon-purple"></i>
+                <span class="skill-level">ADVANCED</span>
+              </div>
+              <h3 class="skill-name">NLP & LLM Orchestration</h3>
+              <p class="skill-sub">LangChain, Semantic Embeddings, RAG, Vector DBs (Chroma/Pinecone)</p>
+              <div class="skill-progress-bar">
+                <div class="progress-fill" style="width: 90%;"></div>
+              </div>
+              <div class="skill-meta">
+                <span>ACCURACY: OPTIMAL</span>
+                <span class="text-purple">90%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category: Languages -->
+          <div class="skill-card gs-reveal" data-category="languages">
+            <div class="skill-card-inner">
+              <div class="skill-icon-header">
+                <i class="ri-terminal-window-fill icon-green"></i>
+                <span class="skill-level">CORE</span>
+              </div>
+              <h3 class="skill-name">C / C++ (STL & Modern)</h3>
+              <p class="skill-sub">Algorithms, Memory Safety, Low-Latency Compute, Competitive Programming</p>
+              <div class="skill-progress-bar">
+                <div class="progress-fill" style="width: 92%;"></div>
+              </div>
+              <div class="skill-meta">
+                <span>COMPLEXITY: O(N log N)</span>
+                <span class="text-green">92%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-card gs-reveal" data-category="languages">
+            <div class="skill-card-inner">
+              <div class="skill-icon-header">
+                <i class="ri-javascript-line icon-yellow"></i>
+                <span class="skill-level">CORE</span>
+              </div>
+              <h3 class="skill-name">JavaScript & TypeScript</h3>
+              <p class="skill-sub">ESNext, Asynchronous Programming, Strict Typing, DOM Optimization</p>
+              <div class="skill-progress-bar">
+                <div class="progress-fill" style="width: 94%;"></div>
+              </div>
+              <div class="skill-meta">
+                <span>ASYNC // THREAD-SAFE</span>
+                <span class="text-cyan">94%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category: Web -->
+          <div class="skill-card gs-reveal" data-category="web">
+            <div class="skill-card-inner">
+              <div class="skill-icon-header">
+                <i class="ri-reactjs-line icon-cyan"></i>
+                <span class="skill-level">ADVANCED</span>
+              </div>
+              <h3 class="skill-name">React & Next.js</h3>
+              <p class="skill-sub">Server Components, State Architectures, Custom Hooks, Performance Tuning</p>
+              <div class="skill-progress-bar">
+                <div class="progress-fill" style="width: 92%;"></div>
+              </div>
+              <div class="skill-meta">
+                <span>SSR / ISR / CLIENT</span>
+                <span class="text-cyan">92%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-card gs-reveal" data-category="web">
+            <div class="skill-card-inner">
+              <div class="skill-icon-header">
+                <i class="ri-server-line icon-green"></i>
+                <span class="skill-level">BACKEND</span>
+              </div>
+              <h3 class="skill-name">FastAPI & Node.js</h3>
+              <p class="skill-sub">RESTful Architectures, WebSockets, JWT Auth, Microservices, Async I/O</p>
+              <div class="skill-progress-bar">
+                <div class="progress-fill" style="width: 88%;"></div>
+              </div>
+              <div class="skill-meta">
+                <span>LATENCY: &lt;50ms</span>
+                <span class="text-green">88%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category: Web (GSAP & UI) -->
+          <div class="skill-card gs-reveal" data-category="web">
+            <div class="skill-card-inner">
+              <div class="skill-icon-header">
+                <i class="ri-sparkling-fill icon-purple"></i>
+                <span class="skill-level">CREATIVE</span>
+              </div>
+              <h3 class="skill-name">GSAP & Modern CSS</h3>
+              <p class="skill-sub">ScrollTrigger, Interactive Canvas, SVG Transforms, Cyberpunk UI & Glassmorphism</p>
+              <div class="skill-progress-bar">
+                <div class="progress-fill" style="width: 96%;"></div>
+              </div>
+              <div class="skill-meta">
+                <span>60FPS REFRESH</span>
+                <span class="text-purple">96%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category: Tools / DevOps -->
+          <div class="skill-card gs-reveal" data-category="tools">
+            <div class="skill-card-inner">
+              <div class="skill-icon-header">
+                <i class="ri-database-2-line icon-cyan"></i>
+                <span class="skill-level">DATA</span>
+              </div>
+              <h3 class="skill-name">PostgreSQL & MongoDB</h3>
+              <p class="skill-sub">Schema Design, Indexing, Vector Search, Redis Caching, Connection Pooling</p>
+              <div class="skill-progress-bar">
+                <div class="progress-fill" style="width: 86%;"></div>
+              </div>
+              <div class="skill-meta">
+                <span>ACID // DISTRIBUTED</span>
+                <span class="text-cyan">86%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-card gs-reveal" data-category="tools">
+            <div class="skill-card-inner">
+              <div class="skill-icon-header">
+                <i class="ri-git-branch-line icon-green"></i>
+                <span class="skill-level">DEVOPS</span>
+              </div>
+              <h3 class="skill-name">Docker, Linux & Git</h3>
+              <p class="skill-sub">Containerization, Bash Scripting, CI/CD Actions, Cloud Deployments (Vercel, AWS)</p>
+              <div class="skill-progress-bar">
+                <div class="progress-fill" style="width: 90%;"></div>
+              </div>
+              <div class="skill-meta">
+                <span>AUTOMATED WORKFLOWS</span>
+                <span class="text-green">90%</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== PROJECTS SECTION ==================== -->
+    <section class="section projects-section" id="projects">
+      <div class="container">
+        
+        <div class="section-header gs-reveal">
+          <div class="section-tag"><span class="hash">#</span> 03 // DEPLOYMENTS</div>
+          <h2 class="section-title">FEATURED_PROJECTS <span class="accent-dot">.</span></h2>
+          <p class="section-desc">Production-grade software systems solving real challenges with verified impact.</p>
+        </div>
+
+        <div class="projects-grid">
+
+          <!-- PROJECT 1: AI RESUME ANALYZER (Flagship) -->
+          <article class="project-card glass-panel gs-reveal">
+            <div class="project-badge-top">
+              <span class="badge-dot pulse-cyan"></span>
+              <span class="badge-tag">AI / NLP CORE</span>
+              <span class="badge-id">PRJ_01</span>
+            </div>
+
+            <div class="project-header">
+              <h3 class="project-name">AI Resume Analyzer</h3>
+              <span class="project-status">[ATS ENGINE // LIVE]</span>
+            </div>
+
+            <p class="project-summary">
+              An intelligent, high-precision ATS parsing and resume scoring engine. Uses modern NLP and LLM semantic embeddings to score candidate resumes against targeted job descriptions, detect missing keywords, evaluate formatting compliance, and provide real-time structural recommendations.
+            </p>
+
+            <!-- Metrics / Highlights -->
+            <div class="project-metrics">
+              <div class="p-metric">
+                <span class="metric-val text-cyan">94.8%</span>
+                <span class="metric-key">PARSER ACCURACY</span>
+              </div>
+              <div class="p-metric">
+                <span class="metric-val text-green">&lt;180ms</span>
+                <span class="metric-key">AVG INFERENCE</span>
+              </div>
+              <div class="p-metric">
+                <span class="metric-val text-purple">15k+</span>
+                <span class="metric-key">PROCESSED</span>
+              </div>
+            </div>
+
+            <!-- Tech Badges -->
+            <div class="project-tech-stack">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">PyTorch</span>
+              <span class="tech-tag">FastAPI</span>
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">TailwindCSS</span>
+              <span class="tech-tag">LangChain</span>
+            </div>
+
+            <!-- Action Links -->
+            <div class="project-footer">
+              <a href="https://github.com/jaidev" target="_blank" rel="noopener noreferrer" class="btn-proj-link">
+                <i class="ri-github-fill"></i> Source Code
+              </a>
+              <a href="https://jaidev-s-portfolio.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-proj-link link-demo">
+                <i class="ri-external-link-line"></i> Launch System
+              </a>
+            </div>
+          </article>
+
+          <!-- PROJECT 2: TEAM FORGE (Flagship) -->
+          <article class="project-card glass-panel gs-reveal">
+            <div class="project-badge-top">
+              <span class="badge-dot pulse-purple"></span>
+              <span class="badge-tag">COLLAB & NETWORKING</span>
+              <span class="badge-id">PRJ_02</span>
+            </div>
+
+            <div class="project-header">
+              <h3 class="project-name">Team Forge</h3>
+              <span class="project-status">[COLLABORATION PLATFORM]</span>
+            </div>
+
+            <p class="project-summary">
+              A dynamic developer matchmaking and hackathon team formation portal. Employs skill-graph pairing heuristics to automatically assemble well-balanced squads (Frontend + Backend + AI + Product), equipped with real-time socket chat, task boards, and project proposal voting.
+            </p>
+
+            <!-- Metrics / Highlights -->
+            <div class="project-metrics">
+              <div class="p-metric">
+                <span class="metric-val text-purple">1,200+</span>
+                <span class="metric-key">TEAMS FORGED</span>
+              </div>
+              <div class="p-metric">
+                <span class="metric-val text-green">&lt;45ms</span>
+                <span class="metric-key">WEBSOCKET SYNC</span>
+              </div>
+              <div class="p-metric">
+                <span class="metric-val text-cyan">98.2%</span>
+                <span class="metric-key">USER SATISFACTION</span>
+              </div>
+            </div>
+
+            <!-- Tech Badges -->
+            <div class="project-tech-stack">
+              <span class="tech-tag">Next.js</span>
+              <span class="tech-tag">TypeScript</span>
+              <span class="tech-tag">Node.js</span>
+              <span class="tech-tag">WebSockets</span>
+              <span class="tech-tag">PostgreSQL</span>
+              <span class="tech-tag">Redis</span>
+            </div>
+
+            <!-- Action Links -->
+            <div class="project-footer">
+              <a href="https://github.com/jaidev" target="_blank" rel="noopener noreferrer" class="btn-proj-link">
+                <i class="ri-github-fill"></i> Source Code
+              </a>
+              <a href="https://jaidev-s-portfolio.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-proj-link link-demo">
+                <i class="ri-external-link-line"></i> Live Deployment
+              </a>
+            </div>
+          </article>
+
+          <!-- PROJECT 3: ALGOPULSE - CP & ALGORITHM VISUALIZER -->
+          <article class="project-card glass-panel gs-reveal">
+            <div class="project-badge-top">
+              <span class="badge-dot pulse-green"></span>
+              <span class="badge-tag">SYSTEMS & ALGORITHMS</span>
+              <span class="badge-id">PRJ_03</span>
+            </div>
+
+            <div class="project-header">
+              <h3 class="project-name">AlgoPulse Visualizer</h3>
+              <span class="project-status">[LOW-LATENCY VIZ]</span>
+            </div>
+
+            <p class="project-summary">
+              High-performance interactive algorithmic visualizer designed for competitive programmers. Animates complex graph traversals (Dijkstra, A*, Tarjan's SCC), segment trees, and dynamic programming state transitions at 60 FPS with step-by-step memory stack inspection.
+            </p>
+
+            <div class="project-metrics">
+              <div class="p-metric">
+                <span class="metric-val text-green">60 FPS</span>
+                <span class="metric-key">SMOOTH RENDER</span>
+              </div>
+              <div class="p-metric">
+                <span class="metric-val text-cyan">40+</span>
+                <span class="metric-key">ALGORITHMS</span>
+              </div>
+              <div class="p-metric">
+                <span class="metric-val text-purple">Zero</span>
+                <span class="metric-key">FRAME DROPS</span>
+              </div>
+            </div>
+
+            <div class="project-tech-stack">
+              <span class="tech-tag">C++</span>
+              <span class="tech-tag">WebAssembly</span>
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">GSAP</span>
+              <span class="tech-tag">HTML5 Canvas</span>
+            </div>
+
+            <div class="project-footer">
+              <a href="https://github.com/jaidev" target="_blank" rel="noopener noreferrer" class="btn-proj-link">
+                <i class="ri-github-fill"></i> Source Code
+              </a>
+              <a href="https://jaidev-s-portfolio.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-proj-link link-demo">
+                <i class="ri-external-link-line"></i> Interactive Demo
+              </a>
+            </div>
+          </article>
+
+          <!-- PROJECT 4: NEURALCODE - REALTIME CODE SYNTHESIS -->
+          <article class="project-card glass-panel gs-reveal">
+            <div class="project-badge-top">
+              <span class="badge-dot pulse-yellow"></span>
+              <span class="badge-tag">LLM & DEVTOOLS</span>
+              <span class="badge-id">PRJ_04</span>
+            </div>
+
+            <div class="project-header">
+              <h3 class="project-name">NeuralCode Optimizer</h3>
+              <span class="project-status">[AST CODE ENHANCER]</span>
+            </div>
+
+            <p class="project-summary">
+              Developer CLI and web workbench that parses abstract syntax trees (ASTs) of Python and C++ codebases, detects anti-patterns, recommends SIMD/vectorized algorithmic alternatives, and calculates asymptotic Big-O runtime bounds automatically.
+            </p>
+
+            <div class="project-metrics">
+              <div class="p-metric">
+                <span class="metric-val text-yellow">3.8x</span>
+                <span class="metric-key">CODE SPEEDUP</span>
+              </div>
+              <div class="p-metric">
+                <span class="metric-val text-cyan">AST</span>
+                <span class="metric-key">DEEP PARSE</span>
+              </div>
+              <div class="p-metric">
+                <span class="metric-val text-green">100%</span>
+                <span class="metric-key">OFFLINE CAPABLE</span>
+              </div>
+            </div>
+
+            <div class="project-tech-stack">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Clang AST</span>
+              <span class="tech-tag">Transformers</span>
+              <span class="tech-tag">Docker</span>
+              <span class="tech-tag">React</span>
+            </div>
+
+            <div class="project-footer">
+              <a href="https://github.com/jaidev" target="_blank" rel="noopener noreferrer" class="btn-proj-link">
+                <i class="ri-github-fill"></i> Source Code
+              </a>
+              <a href="https://jaidev-s-portfolio.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-proj-link link-demo">
+                <i class="ri-external-link-line"></i> Documentation
+              </a>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== INTERACTIVE CYBER TERMINAL ==================== -->
+    <section class="section terminal-section" id="terminal-section">
+      <div class="container">
+        
+        <div class="section-header gs-reveal">
+          <div class="section-tag"><span class="hash">#</span> 04 // SHELL INTERACTION</div>
+          <h2 class="section-title">HACKER_TERMINAL <span class="accent-dot">.</span></h2>
+          <p class="section-desc">Type commands below or click quick-commands to query data directly from memory.</p>
+        </div>
+
+        <div class="cyber-terminal-wrapper gs-reveal">
+          <div class="terminal-bar">
+            <div class="terminal-bar-left">
+              <span class="t-btn red"></span>
+              <span class="t-btn yellow"></span>
+              <span class="t-btn green"></span>
+              <span class="terminal-host"><i class="ri-terminal-fill"></i> jaidev@kernel-v2:~ (bash)</span>
+            </div>
+            <div class="terminal-bar-right">
+              <span class="t-badge"><i class="ri-shield-keyhole-line"></i> SSH: 256-BIT</span>
+            </div>
+          </div>
+
+          <!-- Quick shortcuts pills -->
+          <div class="terminal-quick-actions">
+            <span class="quick-title">QUICK_RUN:</span>
+            <button class="quick-btn" data-cmd="help">help</button>
+            <button class="quick-btn" data-cmd="about">about</button>
+            <button class="quick-btn" data-cmd="skills">skills</button>
+            <button class="quick-btn" data-cmd="projects">projects</button>
+            <button class="quick-btn" data-cmd="larp-check">larp-check</button>
+            <button class="quick-btn" data-cmd="contact">contact</button>
+            <button class="quick-btn" data-cmd="clear">clear</button>
+          </div>
+
+          <div class="terminal-screen" id="terminal-screen">
+            <div class="terminal-output" id="terminal-output">
+              <div class="term-line"><span class="text-cyan">========================================================================</span></div>
+              <div class="term-line"><span class="text-green font-bold">JAIDEV CYBERNETIC SHELL v2.4 [CONNECTED TO HOST: PROD]</span></div>
+              <div class="term-line">Type <span class="text-yellow font-bold">'help'</span> for a list of available commands or <span class="text-purple font-bold">'larp-check'</span> to run diagnostic.</div>
+              <div class="term-line"><span class="text-cyan">========================================================================</span></div>
+            </div>
+
+            <div class="terminal-input-row">
+              <span class="term-prompt-symbol">guest@jaidev.dev:~$</span>
+              <input type="text" id="terminal-input" class="terminal-input" autocomplete="off" spellcheck="false" placeholder="Type a command (e.g. 'help', 'projects', 'cat resume.txt')...">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== CONTACT SECTION ==================== -->
+    <section class="section contact-section" id="contact">
+      <div class="container">
+        
+        <div class="section-header gs-reveal">
+          <div class="section-tag"><span class="hash">#</span> 05 // TRANSMISSION</div>
+          <h2 class="section-title">INITIALIZE_CONNECTION <span class="accent-dot">.</span></h2>
+          <p class="section-desc">Have a project, role, or collaboration in mind? Broadcast a packet into my inbox.</p>
+        </div>
+
+        <div class="contact-grid">
+          
+          <!-- Contact Info / Direct Channels -->
+          <div class="contact-info-panel cyber-panel gs-reveal">
+            <div class="panel-header">
+              <i class="ri-radar-line text-cyan"></i>
+              <span class="panel-title">DIRECT_SIGNALS</span>
+              <span class="panel-badge">ENCRYPTED</span>
+            </div>
+
+            <div class="panel-content">
+              <p class="contact-lead">
+                I am currently open to exciting opportunities in <strong class="text-white">AI Engineering, Machine Learning Research, and Full-Stack Systems</strong>. Whether it's an ambitious startup, high-scale architecture, or a hackathon crew—let's build.
+              </p>
+
+              <div class="contact-items">
+                <a href="mailto:jaidev@example.com" class="contact-item" id="mail-link">
+                  <div class="contact-icon bg-cyan-glow">
+                    <i class="ri-mail-send-line"></i>
+                  </div>
+                  <div class="contact-details">
+                    <span class="item-label">ELECTRONIC MAIL</span>
+                    <span class="item-val">jaidev.dev.ai@gmail.com</span>
+                  </div>
+                  <i class="ri-arrow-right-up-line link-icon"></i>
+                </a>
+
+                <a href="https://github.com/jaidev" target="_blank" rel="noopener noreferrer" class="contact-item">
+                  <div class="contact-icon bg-purple-glow">
+                    <i class="ri-github-fill"></i>
+                  </div>
+                  <div class="contact-details">
+                    <span class="item-label">GITHUB REPOSITORY</span>
+                    <span class="item-val">github.com/jaidev</span>
+                  </div>
+                  <i class="ri-arrow-right-up-line link-icon"></i>
+                </a>
+
+                <a href="https://linkedin.com/in/jaidev" target="_blank" rel="noopener noreferrer" class="contact-item">
+                  <div class="contact-icon bg-green-glow">
+                    <i class="ri-linkedin-box-fill"></i>
+                  </div>
+                  <div class="contact-details">
+                    <span class="item-label">PROFESSIONAL NETWORK</span>
+                    <span class="item-val">linkedin.com/in/jaidev</span>
+                  </div>
+                  <i class="ri-arrow-right-up-line link-icon"></i>
+                </a>
+
+                <div class="contact-item location-item">
+                  <div class="contact-icon bg-yellow-glow">
+                    <i class="ri-map-pin-2-line"></i>
+                  </div>
+                  <div class="contact-details">
+                    <span class="item-label">BASE COORDINATES</span>
+                    <span class="item-val">Global / Remote / India [UTC+5:30]</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Terminal Slogan Quote -->
+              <div class="larp-quote-box">
+                <span class="quote-terminal-prefix">></span>
+                <span class="quote-text">"Resume says 10x. Code says TLE. No larping. Just lock in."</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Message Form -->
+          <div class="contact-form-panel cyber-panel gs-reveal">
+            <div class="panel-header">
+              <i class="ri-terminal-window-line text-green"></i>
+              <span class="panel-title">PACKET_TRANSMITTER</span>
+              <span class="panel-badge">PORT_443</span>
+            </div>
+
+            <form class="cyber-form" id="contact-form">
+              <div class="form-group">
+                <label for="name" class="form-label">
+                  <span class="label-code">[SENDER_IDENTITY]</span> FULL NAME *
+                </label>
+                <div class="input-wrap">
+                  <i class="ri-user-line input-icon"></i>
+                  <input type="text" id="name" name="name" required class="cyber-input" placeholder="e.g. Alex Vance">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="email" class="form-label">
+                  <span class="label-code">[RETURN_ADDRESS]</span> EMAIL ADDRESS *
+                </label>
+                <div class="input-wrap">
+                  <i class="ri-mail-line input-icon"></i>
+                  <input type="email" id="email" name="email" required class="cyber-input" placeholder="alex@nexus.io">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="subject" class="form-label">
+                  <span class="label-code">[PACKET_HEADER]</span> SUBJECT
+                </label>
+                <div class="input-wrap">
+                  <i class="ri-price-tag-3-line input-icon"></i>
+                  <input type="text" id="subject" name="subject" class="cyber-input" placeholder="AI Project Collaboration / Engineering Role">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="message" class="form-label">
+                  <span class="label-code">[PAYLOAD]</span> TRANSMISSION MESSAGE *
+                </label>
+                <div class="input-wrap textarea-wrap">
+                  <i class="ri-chat-3-line input-icon"></i>
+                  <textarea id="message" name="message" rows="4" required class="cyber-input" placeholder="Enter your transmission payload here..."></textarea>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-cyber-primary btn-block" id="form-submit-btn">
+                <i class="ri-send-plane-2-fill"></i>
+                <span class="btn-text">DISPATCH PACKET</span>
+              </button>
+
+              <div class="form-status" id="form-status" aria-live="polite"></div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="cyber-footer">
+    <div class="container footer-container">
+      <div class="footer-left">
+        <span class="f-brand">JAIDEV // DEV</span>
+        <span class="f-copy">&copy; 2026. ENGINEERED FOR HIGH PERFORMANCE & ZERO LARP.</span>
+      </div>
+      <div class="footer-mid">
+        <span class="f-pill"><span class="f-dot"></span> ALL SYSTEMS NOMINAL</span>
+      </div>
+      <div class="footer-right">
+        <a href="#hero" class="back-to-top" aria-label="Return to top">
+          <span>[TOP]</span> <i class="ri-arrow-up-line"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GSAP & ScrollTrigger from Cloudflare CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
+  <!-- Core Logic & Cyber Interactions -->
+  <script src="script.js"></script>
+</body>
+</html>
